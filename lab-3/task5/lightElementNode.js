@@ -1,3 +1,4 @@
+// lightElementNode.js
 const LightNode = require('./lightNode');
 
 class LightElementNode extends LightNode {
@@ -9,6 +10,8 @@ class LightElementNode extends LightNode {
         this.cssClasses = [];
         this.children = [];
         this.eventListeners = {};  // Object to store event listeners
+        this.src = null;
+        this.imageStrategy = null;
     }
 
     addClass(cssClass) {
@@ -39,6 +42,17 @@ class LightElementNode extends LightNode {
                 child.triggerEvent(event);
             }
         });
+    }
+
+    async loadImage(src, strategy) {
+        this.src = src;
+        this.imageStrategy = strategy;
+        try {
+            const data = await strategy.loadImage(src);
+            this.children.push(new LightTextNode(<img src="data:image/png;base64,${data}" />));
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     getOuterHTML() {
