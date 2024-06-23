@@ -1,4 +1,3 @@
-// lightElementNode.js
 const LightNode = require('./lightNode');
 
 class LightElementNode extends LightNode {
@@ -21,6 +20,7 @@ class LightElementNode extends LightNode {
     appendChild(child) {
         if (child instanceof LightNode) {
             this.children.push(child);
+            child.onInserted();
         } else {
             throw new Error('Child must be an instance of LightNode');
         }
