@@ -27,6 +27,10 @@ class LightElementNode extends LightNode {
         this.state.hide();
     }
 
+    accept(visitor) {
+        visitor.visit(this);
+    }
+
     addClass(cssClass) {
         this.cssClasses.push(cssClass);
     }
