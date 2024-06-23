@@ -1,4 +1,5 @@
 const LightNode = require('./lightNode');
+const { VisibleState, HiddenState } = require('./elementState');
 
 class LightElementNode extends LightNode {
     constructor(tagName, displayType = 'block', closingType = 'with closing tag') {
@@ -11,6 +12,19 @@ class LightElementNode extends LightNode {
         this.eventListeners = {};  // Object to store event listeners
         this.src = null;
         this.imageStrategy = null;
+        this.state = new VisibleState(this); // Initial state
+    }
+
+    setState(state) {
+        this.state = state;
+    }
+
+    show() {
+        this.state.show();
+    }
+
+    hide() {
+        this.state.hide();
     }
 
     addClass(cssClass) {
